@@ -10,6 +10,7 @@ from components.radar import Radar
 from components.about import About
 from components.contact import Contact
 from components.settings import Settings
+from components.camera import Camera
 
 # Setting up appearance and theme
 ctk.set_appearance_mode("System")  # Modes: "System", "Dark", "Light"
@@ -84,6 +85,10 @@ class FireDetectionApp(ctk.CTk):
         
         self.right_sidebar_button_settings = ctk.CTkButton(self.right_sidebar_frame, text="Settings", command=self.show_settings)
         self.right_sidebar_button_settings.grid(row=2, column=0, padx=20, pady=10, sticky="ew")
+
+        # Add Camera button in the sidebar
+        self.sidebar_button_camera = ctk.CTkButton(self.right_sidebar_frame, text="Start Detection", command=self.show_camera)
+        self.sidebar_button_camera.grid(row=3, column=0, padx=20, pady=10, sticky="ew")
         
         # Main Content Area (Dashboard, Safe House, etc.)
         self.main_frame = ctk.CTkFrame(self)
@@ -92,6 +97,7 @@ class FireDetectionApp(ctk.CTk):
         # Placeholder for content area
         self.content_label = ctk.CTkLabel(self.main_frame, text="Welcome to Fire Detection System")
         self.content_label.grid(row=0, column=0, padx=20, pady=20)
+
     
     def clear_main_content(self):
         """Clear the main content area."""
@@ -138,6 +144,12 @@ class FireDetectionApp(ctk.CTk):
         self.clear_main_content()
         settings = Settings(self.main_frame)
         settings.render()
+
+    # Define the show_camera function in the FireDetectionApp class
+    def show_camera(self):
+        self.clear_main_content()
+        self.camera = Camera(self.main_frame)
+        self.camera.render()
 
     # Event Handlers
     def change_appearance_mode_event(self, new_appearance_mode: str):
